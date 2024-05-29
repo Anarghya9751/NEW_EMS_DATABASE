@@ -3,10 +3,10 @@ CREATE TABLE `user` (
   `first_name` varchar(100) NOT NULL,
   `last_name` varchar(100) NOT NULL,
   `roll_no` varchar(100) DEFAULT NULL,
-  `Email` varchar(100) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
   `department` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `roll_no` (`roll_no`),
-  UNIQUE KEY `Email` (`Email`)
+  UNIQUE KEY `email` (`email`)
 );

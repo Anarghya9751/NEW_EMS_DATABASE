@@ -1,5 +1,4 @@
 CREATE TABLE `organization` (
-  `Id` varchar(20) NOT NULL,
   `Name` varchar(250) NOT NULL,
   `Location` varchar(100) DEFAULT NULL,
   `Region` varchar(100) DEFAULT NULL,

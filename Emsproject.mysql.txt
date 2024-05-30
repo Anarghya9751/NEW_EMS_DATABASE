@@ -1,12 +1,15 @@
-CREATE TABLE `user` (
+
+  `CREATE TABLE `user` (
   `user_id` int NOT NULL AUTO_INCREMENT,
   `first_name` varchar(100) NOT NULL,
   `last_name` varchar(100) NOT NULL,
   `roll_no` varchar(100) DEFAULT NULL,
   `Email` varchar(100) DEFAULT NULL,
   `department` varchar(100) NOT NULL,
+  `department_id` varchar(100), 
   `password` varchar(100) NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `roll_no` (`roll_no`),
-  UNIQUE KEY `Email` (`Email`)
+  UNIQUE KEY `Email` (`Email`),
+  FOREIGN KEY (`department_id`) REFERENCES `Department`(`Department_id`) 
 );

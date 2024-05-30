@@ -1,0 +1,16 @@
+CREATE TABLE `organization` (
+  `Id` varchar(20) NOT NULL,
+  `Name` varchar(250) NOT NULL,
+  `Location` varchar(100) DEFAULT NULL,
+  `Region` varchar(100) DEFAULT NULL,
+  `Address` varchar(300) DEFAULT NULL,
+  `Pincode` int DEFAULT NULL,
+  `State` varchar(100) DEFAULT NULL,
+  `District` varchar(200) DEFAULT NULL,
+  `City` varchar(100) DEFAULT NULL,
+  `PhoneNumber` int DEFAULT NULL,
+  `EmailId` varchar(100) DEFAULT NULL,
+  `url` varchar(200) NOT NULL,
+  `status` varchar(45) NOT NULL,
+  PRIMARY KEY (`Id`)
+);

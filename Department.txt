@@ -1,0 +1,13 @@
+CREATE TABLE `department` (
+  `Department_id` varchar(100) NOT NULL,
+  `Department_name` varchar(200) NOT NULL,
+  `parent_branch` int NOT NULL,
+  `parent_org` int NOT NULL,
+  `pincode` int NOT NULL,
+  `State` varchar(100) NOT NULL,
+  PRIMARY KEY (`Department_id`),
+  KEY `parent_branch` (`parent_branch`),
+  KEY `parent_org` (`parent_org`),
+  CONSTRAINT `department_ibfk_1` FOREIGN KEY (`parent_branch`) REFERENCES `branch` (`Id`),
+  CONSTRAINT `department_ibfk_2` FOREIGN KEY (`parent_org`) REFERENCES `organization` (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci

@@ -1,15 +1,14 @@
-CREATE TABLE `user` (
-  `user_id` int NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(100) NOT NULL,
-  `last_name` varchar(100) NOT NULL,
-  `roll_no` varchar(100) DEFAULT NULL,
-  `Email` varchar(100) DEFAULT NULL,
-  `department` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `usercol` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`user_id`),
-  UNIQUE KEY `roll_no` (`roll_no`),
-  UNIQUE KEY `Email` (`Email`),
-  KEY `department` (`department`),
-  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`department`) REFERENCES `department` (`Department_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+create table User(
+UserId not null PRIMARY KEY,
+firstName varchar(50) not null,
+lastName varchar(50),
+email varchar(50) not null,
+phoneNumber varchar (50) not null,
+isActive boolean not null,
+isDeleted boolean not null,
+image varchar(50),
+
+FOREIGN KEY (branch Id) REFERENCES branch(branchId),
+FOREIGN KEY (organizationId) REFERENCES organization (organizationId),
+FOREIGN KEY (departementId) REFERERENCES department(departmentId));
+FOREIGN KEY (roleId) REFERERENCES role(roleId));

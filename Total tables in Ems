@@ -59,11 +59,13 @@ CREATE TABLE `department` (
 );
 
 CREATE TABLE `designation` (
-  `ID` int NOT NULL AUTO_INCREMENT,
-  `Name` varchar(45) DEFAULT NULL,
+  `Designation_ID` int NOT NULL AUTO_INCREMENT,
+  `Designation_Name` varchar(45) DEFAULT NULL,
   `Parent_department` varchar(100) DEFAULT NULL,
-  `Parent_branch` int DEFAULT NULL,
-  `Parent_org` int DEFAULT NULL,
+  `Parent_branch` varchar DEFAULT NULL,
+  `Parent_org` varchar DEFAULT NULL,
+  status varchar (100) NOT NULL,
+  Actions varchar(100) NOT NULL,
   PRIMARY KEY (`ID`),
   CONSTRAINT `fk_designation_department` FOREIGN KEY (`Parent_department`) REFERENCES `department` (`Department_id`),
   CONSTRAINT `fk_designation_branch` FOREIGN KEY (`Parent_branch`) REFERENCES `branch` (`Id`),

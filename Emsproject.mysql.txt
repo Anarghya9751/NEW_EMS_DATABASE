@@ -10,5 +10,5 @@ image varchar(50),
 
 FOREIGN KEY (branch Id) REFERENCES branch(branchId),
 FOREIGN KEY (organizationId) REFERENCES organization (organizationId),
-FOREIGN KEY (departementId) REFERERENCES department(departmentId));
+FOREIGN KEY (departementId) REFERERENCES department(departmentId);
 FOREIGN KEY (roleId) REFERERENCES role(roleId));

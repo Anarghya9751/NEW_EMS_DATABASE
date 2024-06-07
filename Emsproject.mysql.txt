@@ -6,7 +6,6 @@ CREATE TABLE `user` (
   `Email` varchar(100) DEFAULT NULL,
   `department` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `usercol` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `roll_no` (`roll_no`),
   UNIQUE KEY `Email` (`Email`),

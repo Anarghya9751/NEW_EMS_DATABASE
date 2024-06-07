@@ -1,0 +1,14 @@
+CREATE TABLE branch (
+  Id int NOT NULL AUTO_INCREMENT,
+  Name varchar(225) DEFAULT NULL,
+  Location varchar(45) DEFAULT NULL,
+  Region varchar(45) DEFAULT NULL,
+  Address varchar(45) DEFAULT NULL,
+  PinCode int DEFAULT NULL,
+  State varchar(45) DEFAULT NULL,
+  City varchar(45) DEFAULT NULL,
+  OrganizationId int NOT NULL,
+  PRIMARY KEY (Id),
+  KEY org_id_idx (OrganizationId),
+  CONSTRAINT fk_branch_organization FOREIGN KEY (OrganizationId) REFERENCES organization (Id)
+) 

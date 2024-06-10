@@ -1,10 +1,11 @@
-
+CREATE DATABASE Employeemanagement;
+use Employeemanagement;
 CREATE TABLE organization (
     organizationId INT NOT NULL PRIMARY KEY,
     name VARCHAR(50) NOT NULL
 );
 
-
+use Employeemanagement;
 CREATE TABLE branch (
     branchId INT NOT NULL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
@@ -13,7 +14,7 @@ CREATE TABLE branch (
     organizationId INT NOT NULL,
     FOREIGN KEY (organizationId) REFERENCES organization(organizationId)
 );
-
+ use Employeemanagement;
 CREATE TABLE department (
     departmentId INT NOT NULL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
@@ -23,7 +24,7 @@ CREATE TABLE department (
     FOREIGN KEY (organizationId) REFERENCES organization(organizationId)
 );
 
-
+use Employeemanagement;
 CREATE TABLE role (
     roleId INT NOT NULL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
@@ -35,7 +36,7 @@ CREATE TABLE role (
     FOREIGN KEY (departmentId) REFERENCES department(departmentId)
 );
 
-
+use Employeemanagement;
 CREATE TABLE user (
     userId INT NOT NULL PRIMARY KEY,
     firstName VARCHAR(50) NOT NULL,
@@ -45,6 +46,7 @@ CREATE TABLE user (
     password VARCHAR(50) NOT NULL,
     isActive BOOLEAN NOT NULL,
     isDeleted BOOLEAN NOT NULL,
+    isStatus BOOLEAN NOT NULL,
     image VARCHAR(50),
     branchId INT NOT NULL,
     organizationId INT NOT NULL,

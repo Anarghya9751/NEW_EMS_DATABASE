@@ -1,0 +1,58 @@
+
+CREATE TABLE organization (
+    organizationId INT NOT NULL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL
+);
+
+
+CREATE TABLE branch (
+    branchId INT NOT NULL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    address VARCHAR(100),
+    phonenumber VARCHAR(100),
+    organizationId INT NOT NULL,
+    FOREIGN KEY (organizationId) REFERENCES organization(organizationId)
+);
+
+CREATE TABLE department (
+    departmentId INT NOT NULL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    branchId INT NOT NULL,
+    organizationId INT NOT NULL,
+    FOREIGN KEY (branchId) REFERENCES branch(branchId),
+    FOREIGN KEY (organizationId) REFERENCES organization(organizationId)
+);
+
+
+CREATE TABLE role (
+    roleId INT NOT NULL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    branchId INT NOT NULL,
+    organizationId INT NOT NULL,
+    departmentId INT NOT NULL,
+    FOREIGN KEY (branchId) REFERENCES branch(branchId),
+    FOREIGN KEY (organizationId) REFERENCES organization(organizationId),
+    FOREIGN KEY (departmentId) REFERENCES department(departmentId)
+);
+
+
+CREATE TABLE user (
+    userId INT NOT NULL PRIMARY KEY,
+    firstName VARCHAR(50) NOT NULL,
+    lastName VARCHAR(50),
+    email VARCHAR(50) NOT NULL,
+    phonenumber VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    isActive BOOLEAN NOT NULL,
+    isDeleted BOOLEAN NOT NULL,
+    image VARCHAR(50),
+    branchId INT NOT NULL,
+    organizationId INT NOT NULL,
+    departmentId INT NOT NULL,
+    roleId INT NOT NULL,
+    FOREIGN KEY (branchId) REFERENCES branch(branchId),
+    FOREIGN KEY (organizationId) REFERENCES organization(organizationId),
+    FOREIGN KEY (departmentId) REFERENCES department(departmentId),
+    FOREIGN KEY (roleId) REFERENCES role(roleId)
+);
+

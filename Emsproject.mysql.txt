@@ -1,14 +1,145 @@
-CREATE TABLE `user` (
-  `user_id` int NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(100) NOT NULL,
-  `last_name` varchar(100) NOT NULL,
-  `roll_no` varchar(100) DEFAULT NULL,
-  `Email` varchar(100) DEFAULT NULL,
-  `department` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  PRIMARY KEY (`user_id`),
-  UNIQUE KEY `roll_no` (`roll_no`),
-  UNIQUE KEY `Email` (`Email`),
-  KEY `department` (`department`),
-  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`department`) REFERENCES `department` (`Department_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+organization:
+
+use employeemangement;
+create table organization (
+organizationId int not null primary key,
+name varchar(250) not null );
+
+branch:
+==========
+
+use employeemangement;
+create table branch(
+branchId int not null primary key,
+name varchar(250) not null,
+organizationId int not null,
+foreign key (organizationId) references organization(organizationId)
+);
+
+
+Department:
+===========
+use employeeMangement;
+create table department(
+
+departmentId int not null primary key,
+name varchar(250) not null,
+branchId int not null,
+organizationId int not null,
+foreign key(branchId) references branch(branchId),
+foreign key (organizationId) references organization(organizationId)
+);
+
+
+
+Designation:
+===========
+
+
+use employeemangement;
+create table designation(
+
+designationId int not null primary key,
+name varchar(250) not null,
+departmentId int not null,
+branchId int not null,
+organizationId int not null,
+foreign key (departmentId) references department(departmentId),
+foreign key (branchId) references branch(branchId),
+foreign key (organizationId) references organization(organizationId)
+);
+
+
+
+
+
+
+Employeee:
+============
+
+use employeemangement;
+create table employee
+(employeeId int not null primary key,
+name varchar(250) not null,
+designationId int not null,
+departmentId int not null,
+branchId int not null,
+organizationId int not null,
+foreign key (designationId) references designation(designationId),
+foreign key (departmentId) references department(departmentId),
+foreign key (branchId) references branch(branchId),
+foreign key (organizationId) references organization(organizationId)
+); 
+
+
+
+role:
+======
+se employeemangement;
+create table role
+(
+role varchar(250) not null,
+departmentId int not null,
+branchId int not null,
+organizationId int not null,
+primary key(role),
+foreign key (departmentId) references department(departmentId),
+foreign key (branchId) references branch(branchId),
+foreign key (organizationId) references organization(organizationId)
+); 
+
+
+USer:
+====
+use employeemangement;
+create table user 
+(userId int not null,
+First_Name varchar(250) not null,
+Last_Name varchar(250) not null,
+Email varchar(250) not null,
+Phonenumber int(250) not null,
+Password int(250) not null,
+isActive boolean not null,
+isDeleted boolean not null,
+isStatus boolean not null,
+image varchar(250) not null,
+role varchar(250) not null,
+employeeId int not null,
+designationId int not null,
+departmentId int not null,
+branchId int not null,
+organizationId int not null,
+foreign key (role) references role(role),
+foreign key (employeeId) references employee(employeeId),
+foreign key (designationId) references designation(designationId),
+foreign key (departmentId) references department(departmentId),
+foreign key (branchId) references branch(branchId),
+foreign key (organizationId) references organization(organizationId)
+); 
+
+
+projects:
+============
+
+create table Projects(
+
+ProjectCode varchar(250) not null,
+Name varchar(250) not null,
+departmentId int not null,
+foreign key (department) references department(department)
+
+);
+
+client:
+========
+create table client(
+clientID int not null primary key,
+clientName varchar(250) not null,
+primary key(department),
+department varchar(250) not null,
+foreign key (department) references department(department)
+
+);
+
+
+

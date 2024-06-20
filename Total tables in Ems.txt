@@ -1,60 +1,112 @@
-CREATE DATABASE Employeemanagement;
-use Employeemanagement;
-CREATE TABLE organization (
-    organizationId INT NOT NULL PRIMARY KEY,
-    name VARCHAR(50) NOT NULL
+create database EmployeeManagement;
+
+use EmployeeManagement;
+
+CREATE TABLE `organization` (
+  `organizationId` int NOT NULL,
+  `name` varchar(250) NOT NULL,
+  PRIMARY KEY (`organizationId`)
 );
 
-use Employeemanagement;
-CREATE TABLE branch (
-    branchId INT NOT NULL PRIMARY KEY,
-    name VARCHAR(50) NOT NULL,
-    address VARCHAR(100),
-    phonenumber VARCHAR(100),
-    organizationId INT NOT NULL,
-    FOREIGN KEY (organizationId) REFERENCES organization(organizationId)
-);
- use Employeemanagement;
-CREATE TABLE department (
-    departmentId INT NOT NULL PRIMARY KEY,
-    name VARCHAR(50) NOT NULL,
-    branchId INT NOT NULL,
-    organizationId INT NOT NULL,
-    FOREIGN KEY (branchId) REFERENCES branch(branchId),
-    FOREIGN KEY (organizationId) REFERENCES organization(organizationId)
+
+CREATE TABLE `branch` (
+  `branchId` int NOT NULL,
+  `name` varchar(250) NOT NULL,
+  `organizationId` int NOT NULL,
+  PRIMARY KEY (`branchId`),
+  KEY `organizationId` (`organizationId`),
+  CONSTRAINT `branch_ibfk_1` FOREIGN KEY (`organizationId`) REFERENCES `organization` (`organizationId`)
 );
 
-use Employeemanagement;
-CREATE TABLE role (
-    roleId INT NOT NULL PRIMARY KEY,
-    name VARCHAR(50) NOT NULL,
-    branchId INT NOT NULL,
-    organizationId INT NOT NULL,
-    departmentId INT NOT NULL,
-    FOREIGN KEY (branchId) REFERENCES branch(branchId),
-    FOREIGN KEY (organizationId) REFERENCES organization(organizationId),
-    FOREIGN KEY (departmentId) REFERENCES department(departmentId)
+CREATE TABLE `department` (
+  `departmentId` int NOT NULL,
+  `name` varchar(250) NOT NULL,
+  `branchId` int NOT NULL,
+  `organizationId` int NOT NULL,
+  PRIMARY KEY (`departmentId`),
+  KEY `branchId` (`branchId`),
+  KEY `organizationId` (`organizationId`),
+  CONSTRAINT `department_ibfk_1` FOREIGN KEY (`branchId`) REFERENCES `branch` (`branchId`),
+  CONSTRAINT `department_ibfk_2` FOREIGN KEY (`organizationId`) REFERENCES `organization` (`organizationId`)
 );
 
-use Employeemanagement;
-CREATE TABLE user (
-    userId INT NOT NULL PRIMARY KEY,
-    firstName VARCHAR(50) NOT NULL,
-    lastName VARCHAR(50),
-    email VARCHAR(50) NOT NULL,
-    phonenumber VARCHAR(50) NOT NULL,
-    password VARCHAR(50) NOT NULL,
-    isActive BOOLEAN NOT NULL,
-    isDeleted BOOLEAN NOT NULL,
-    isStatus BOOLEAN NOT NULL,
-    image VARCHAR(50),
-    branchId INT NOT NULL,
-    organizationId INT NOT NULL,
-    departmentId INT NOT NULL,
-    roleId INT NOT NULL,
-    FOREIGN KEY (branchId) REFERENCES branch(branchId),
-    FOREIGN KEY (organizationId) REFERENCES organization(organizationId),
-    FOREIGN KEY (departmentId) REFERENCES department(departmentId),
-    FOREIGN KEY (roleId) REFERENCES role(roleId)
+CREATE TABLE `designation` (
+  `designationId` int NOT NULL,
+  `name` varchar(250) NOT NULL,
+  `departmentId` int NOT NULL,
+  `branchId` int NOT NULL,
+  `organizationId` int NOT NULL,
+  PRIMARY KEY (`designationId`),
+  KEY `departmentId` (`departmentId`),
+  KEY `branchId` (`branchId`),
+  KEY `organizationId` (`organizationId`),
+  CONSTRAINT `designation_ibfk_1` FOREIGN KEY (`departmentId`) REFERENCES `department` (`departmentId`),
+  CONSTRAINT `designation_ibfk_2` FOREIGN KEY (`branchId`) REFERENCES `branch` (`branchId`),
+  CONSTRAINT `designation_ibfk_3` FOREIGN KEY (`organizationId`) REFERENCES `organization` (`organizationId`)
 );
+
+CREATE TABLE `employee` (
+  `employeeId` int NOT NULL,
+  `name` varchar(250) NOT NULL,
+  `designationId` int NOT NULL,
+  `departmentId` int NOT NULL,
+  `branchId` int NOT NULL,
+  `organizationId` int NOT NULL,
+  PRIMARY KEY (`employeeId`),
+  KEY `designationId` (`designationId`),
+  KEY `departmentId` (`departmentId`),
+  KEY `branchId` (`branchId`),
+  KEY `organizationId` (`organizationId`),
+  CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`designationId`) REFERENCES `designation` (`designationId`),
+  CONSTRAINT `employee_ibfk_2` FOREIGN KEY (`departmentId`) REFERENCES `department` (`departmentId`),
+  CONSTRAINT `employee_ibfk_3` FOREIGN KEY (`branchId`) REFERENCES `branch` (`branchId`),
+  CONSTRAINT `employee_ibfk_4` FOREIGN KEY (`organizationId`) REFERENCES `organization` (`organizationId`)
+);
+
+CREATE TABLE `role` (
+  `role` varchar(250) NOT NULL,
+  `departmentId` int NOT NULL,
+  `branchId` int NOT NULL,
+  `organizationId` int NOT NULL,
+  PRIMARY KEY (`role`),
+  KEY `departmentId` (`departmentId`),
+  KEY `branchId` (`branchId`),
+  KEY `organizationId` (`organizationId`),
+  CONSTRAINT `role_ibfk_3` FOREIGN KEY (`departmentId`) REFERENCES `department` (`departmentId`),
+  CONSTRAINT `role_ibfk_4` FOREIGN KEY (`branchId`) REFERENCES `branch` (`branchId`),
+  CONSTRAINT `role_ibfk_5` FOREIGN KEY (`organizationId`) REFERENCES `organization` (`organizationId`)
+);
+
+CREATE TABLE `user` (
+  `userId` int NOT NULL,
+  `First_Name` varchar(250) NOT NULL,
+  `Last_Name` varchar(250) NOT NULL,
+  `Email` varchar(250) NOT NULL,
+  `Phonenumber` int NOT NULL,
+  `Password` varchar(250) NOT NULL,
+  `isActive` tinyint(1) NOT NULL,
+  `isDeleted` tinyint(1) NOT NULL,
+  `isStatus` tinyint(1) NOT NULL,
+  `image` varchar(250) NOT NULL,
+  `role` varchar(250) NOT NULL,
+  `employeeId` int NOT NULL,
+  `designationId` int NOT NULL,
+  `departmentId` int NOT NULL,
+  `branchId` int NOT NULL,
+  `organizationId` int NOT NULL,
+  PRIMARY KEY (`userId`),
+  KEY `role` (`role`),
+  KEY `employeeId` (`employeeId`),
+  KEY `designationId` (`designationId`),
+  KEY `departmentId` (`departmentId`),
+  KEY `branchId` (`branchId`),
+  KEY `organizationId` (`organizationId`),
+  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`role`) REFERENCES `role` (`role`),
+  CONSTRAINT `user_ibfk_2` FOREIGN KEY (`employeeId`) REFERENCES `employee` (`employeeId`),
+  CONSTRAINT `user_ibfk_3` FOREIGN KEY (`designationId`) REFERENCES `designation` (`designationId`),
+  CONSTRAINT `user_ibfk_4` FOREIGN KEY (`departmentId`) REFERENCES `department` (`departmentId`),
+  CONSTRAINT `user_ibfk_5` FOREIGN KEY (`branchId`) REFERENCES `branch` (`branchId`),
+  CONSTRAINT `user_ibfk_6` FOREIGN KEY (`organizationId`) REFERENCES `organization` (`organizationId`)
+);
+
 

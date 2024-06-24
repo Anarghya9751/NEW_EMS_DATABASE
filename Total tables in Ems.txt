@@ -142,12 +142,16 @@ CREATE TABLE `projects` (
 
 CREATE TABLE `task` (
   `TaskCode` varchar(250) NOT NULL,
+  `Timer` int NOT NULL,
+  `Task` varchar(250) NOT NULL,
   `ProjectName` varchar(250) NOT NULL,
-  `status` tinyint(1) NOT NULL,
-  `sprint` varchar(250) NOT NULL,
-  `milestone` varchar(250) NOT NULL,
-  `startDate` int NOT NULL,
-  `Description` varchar(2000) NOT NULL,
+  `Sprint` varchar(250) NOT NULL,
+  `StartDate` int NOT NULL,
+  `EndDate` int NOT NULL,
+  `Hours` varchar(250) NOT NULL,
+  `TaskStatus` tinyint(1) NOT NULL,
+  `AssignedTo` tinyint(1) NOT NULL,
+  `Actions` tinyint(1) NOT NULL,
   PRIMARY KEY (`TaskCode`),
   KEY `ProjectName` (`ProjectName`),
   CONSTRAINT `task_ibfk_1` FOREIGN KEY (`ProjectName`) REFERENCES `projects` (`ProjectName`)

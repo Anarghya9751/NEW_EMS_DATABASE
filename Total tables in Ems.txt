@@ -123,7 +123,7 @@ CREATE TABLE `client` (
   CONSTRAINT `client_ibfk_1` FOREIGN KEY (`departmentId`) REFERENCES `department` (`departmentId`)
 );
 
-REATE TABLE `projects` (
+CREATE TABLE `projects` (
   `ProjectCode` varchar(250) NOT NULL,
   `ProjectName` varchar(250) NOT NULL,
   `departmentId` int NOT NULL,
@@ -133,9 +133,22 @@ REATE TABLE `projects` (
   `Team` varchar(250) NOT NULL,
   `Status` tinyint(1) NOT NULL,
   `Actions` tinyint(1) NOT NULL,
-  PRIMARY KEY (`ProjectCode`),
+  PRIMARY KEY (`ProjectName`),
   KEY `departmentId` (`departmentId`),
   KEY `clientId` (`clientId`),
   CONSTRAINT `projects_ibfk_1` FOREIGN KEY (`departmentId`) REFERENCES `department` (`departmentId`),
   CONSTRAINT `projects_ibfk_2` FOREIGN KEY (`clientId`) REFERENCES `client` (`clientId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) ;
+
+CREATE TABLE `task` (
+  `TaskCode` varchar(250) NOT NULL,
+  `ProjectName` varchar(250) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `sprint` varchar(250) NOT NULL,
+  `milestone` varchar(250) NOT NULL,
+  `startDate` int NOT NULL,
+  `Description` varchar(2000) NOT NULL,
+  PRIMARY KEY (`TaskCode`),
+  KEY `ProjectName` (`ProjectName`),
+  CONSTRAINT `task_ibfk_1` FOREIGN KEY (`ProjectName`) REFERENCES `projects` (`ProjectName`)
+);
